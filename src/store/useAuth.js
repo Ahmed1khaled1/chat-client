@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 import { io } from "socket.io-client";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://chat-backend-beta-ten.vercel.app";
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
