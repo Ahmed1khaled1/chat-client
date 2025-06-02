@@ -37,7 +37,11 @@ export const useAuthStore = create((set, get) => ({
       toast.success("Sign up successful! Welcome!");
       get().connectSocket();
     } catch (error) {
-      toast.error("Failed to sign up. Please try again.");
+      console.error("Sign up error:", error?.response?.data || error.message);
+      toast.error(
+        error?.response?.data?.message ||
+        "Failed to sign up. Please try again."
+      );
     } finally {
       set({ isSigningUp: false });
     }
@@ -51,8 +55,11 @@ export const useAuthStore = create((set, get) => ({
       toast.success("Login successful! Welcome back!");
       get().connectSocket();
     } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Failed to log in. Please check your credentials.");
+      console.error("Login error:", error?.response?.data || error.message);
+      toast.error(
+        error?.response?.data?.message ||
+        "Failed to log in. Please check your credentials."
+      );
     } finally {
       set({ isSigningIn: false });
     }
@@ -76,14 +83,18 @@ export const useAuthStore = create((set, get) => ({
       const response = await axiosInstance.put("/auth/update-profile", data);
       set((state) => ({
         authUser: {
-          ...state.authUser, // الاحتفاظ بالبيانات السابقة
-          ...response.data, // تحديث الاسم والإيميل فقط إذا تم إرسالهما
-          profilePic: state.authUser.profilePic, // الحفاظ على الصورة
+          ...state.authUser,
+          ...response.data,
+          profilePic: state.authUser.profilePic,
         },
-      }));      toast.success("Profile updated successfully!");
+      }));
+      toast.success("Profile updated successfully!");
     } catch (error) {
-      console.error("Update user error:", error);
-      toast.error("Failed to update profile. Please try again.");
+      console.error("Update user error:", error?.response?.data || error.message);
+      toast.error(
+        error?.response?.data?.message ||
+        "Failed to update profile. Please try again."
+      );
     } finally {
       set({ isUpdatingUser: false });
     }
