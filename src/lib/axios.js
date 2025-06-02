@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: "https://chat-backend-i7i5.vercel.app/api",
+  baseURL: "https://chat-backend-beta-ten.vercel.app/api",
   withCredentials: true,
 });
 
